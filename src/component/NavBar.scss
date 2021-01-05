@@ -1,0 +1,24 @@
+
+.nav-bar {
+    padding: 20px 0px 20px 20px;
+    background-color: #FF008A;
+    height: 70px;
+    position: relative;
+    width: 100%;
+    
+    padding-top: 20px;
+    ul {
+      list-style: none;
+      float: left;
+    }
+    li {
+      display: inline-block;
+      padding: 0px 50px 0px 0px;
+      font-size: 24px;
+      font-weight: 600;
+      font-family: "Kanit", sans-serif;
+      a{
+        color: darkslategray;
+      }
+    }
+  }
