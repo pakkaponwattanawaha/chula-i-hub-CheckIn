@@ -22,7 +22,7 @@ function Navbar() {
                         <a href='/event/?eventid=0001&type=failed&num=0865500109'>failed2</a>
                     </li>
                     <li>
-                        <a href='/event/?eventid=0001&type=success'>success</a>
+                        <a href='/event/?eventid=0001&type=success&num=0865500107'>success</a>
                     </li>
                 </ul>
             </nav>
