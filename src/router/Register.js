@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
-
+import firebase from '../utils/firebase'
 export default function Register() {
     const initFormData = {
         "userinfo": {
@@ -14,7 +14,6 @@ export default function Register() {
 
     }
     const [formData, setFormData] = useState(initFormData)
-    const tel = ""
     const handleOnchange = (e) => {
         const { name, value } = e.target;
         setFormData((prevState) => ({
@@ -24,11 +23,11 @@ export default function Register() {
                 [name]: value
             }
         }))
-        // console.log(e.target.name)
-        // console.log(e.target.value)
 
     }
     const handleSubmit = () => {
+        const infoRef = firebase.database().ref("user")
+        infoRef.push(formData)
         console.log('SUBMITTED!')
     }
     console.log('formData:', formData)
@@ -36,7 +35,7 @@ export default function Register() {
         <div>
             <h1>REGISTER</h1>
             <div>Design thinking</div>
-            <div>{JSON.toString(formData.userinfo)}</div>
+            {/* <div>{JSON.toString(formData.userinfo)}</div> */}
 
             <Form onSubmit={handleSubmit}>
                 <div className="search-group-div">
@@ -49,7 +48,7 @@ export default function Register() {
                             type="text"
                             value={formData.userinfo.name}
                             onChange={handleOnchange}
-                            placeholder='โปรดกรอกชื่อภาษาไทย'
+                            placeholder=''
                         />
                     </div>
                     <Form.Label className="search-group-label">
@@ -61,7 +60,7 @@ export default function Register() {
                             type="text"
                             value={formData.userinfo.surname}
                             onChange={handleOnchange}
-                            placeholder='โปรดกรอกนามสกุลภาษาไทย'
+                            placeholder=''
                         />
                     </div>
 
@@ -74,7 +73,7 @@ export default function Register() {
                             type="text"
                             value={formData.userinfo.sid}
                             onChange={handleOnchange}
-                            placeholder='โปรดกรอกรหัสนิสิต10หลัก'
+                            placeholder=''
                         />
                     </div>
                     <Form.Label className="search-group-label">
@@ -86,7 +85,7 @@ export default function Register() {
                             type="text"
                             value={formData.userinfo.faculty}
                             onChange={handleOnchange}
-                            placeholder='โปรดกรอกคณะที่ศึกษาอยู่'
+                            placeholder=''
                         />
                     </div>
                     <Form.Label className="search-group-label">
@@ -98,7 +97,7 @@ export default function Register() {
                             type="text"
                             value={formData.userinfo.years}
                             onChange={handleOnchange}
-                            placeholder='โปรดกรอกชั้นปีที่ศึกษาอยู่'
+                            placeholder=''
                         />
                     </div>
                     <Form.Label className="search-group-label">
@@ -110,23 +109,15 @@ export default function Register() {
                             type="text"
                             value={formData.userinfo.telno}
                             onChange={handleOnchange}
-                            placeholder='0XX-XXX-XXXX'
+                            placeholder=''
                         />
                     </div>
                     <div className="search-group-btn">
-                        <Button variant="primary" type="button" value="Submit" >Submit</Button>
+                        <Button variant="primary" type="button" value="Submit" onClick={handleSubmit}>Submit</Button>
                     </div>
                 </div>
 
             </Form>
-            {/* <Form placeholder='ชื่อ' />
-            <Form placeholder='นามสกุล' />
-            <Form placeholder='เบอร์โทรศัพท์' />
-            <Form placeholder='รหัสนิสิต' />
-            <Form placeholder='คณะ' />
-            <Form placeholder='ชั้นปี' />
-            <Form placeholder='เบอร์โทรศัพท์' />
-            <Button title='Submit' from='register' /> */}
         </div>
     )
 }
