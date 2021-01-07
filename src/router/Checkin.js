@@ -1,35 +1,63 @@
-import React,{ useEffect, useState }  from 'react'
-import { useHistory,useLocation } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import { useHistory, useLocation } from "react-router-dom";
+import firebase from '../utils/firebase'
+
 // import BasicForm from '../component/BasicForm'
 // import Btn from '../component/Btn'
 import { Form, Button } from 'react-bootstrap'
+
 export default function Checkin() {
+    const infoRef = firebase.database().ref("user")
+    // const [fromDB,setFromDB]= useState({})
+    var fromDB = {}
+    infoRef.on('value', snapshot => {
+        fromDB = snapshot.val()
+        // console.log(snapshot.val())
+    })
+
     function useQuery() {
         return new URLSearchParams(useLocation().search);
     }
-    
+
     const query = useQuery();
-    
+
     const [input, setInput] = useState('');
     const history = useHistory();
 
+    const handleClick = () => { console.log(input) }
+
+    const eventid = query.get("eventid")
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        
-        if(input==='0865500107')history.push('/event/?eventid=0001&type=success' + '&num=' + input)
-        else history.push('/event/?eventid=0001&type=failed' + '&num=' + input)
+        const userNumArr = Object.keys(fromDB).map((key, index) =>
+            new Object({ "telno": fromDB[key].userinfo.telno, "isCheckin": fromDB[key].userinfo.isCheckin })
+        )
+        console.log(userNumArr)
+        let obj = userNumArr.find(o => o.telno === input);
+        // console.log(obj)
+        if (!obj || obj===undefined){
+            // history.push('/event/?eventid=0001&type=failed' + '&num=' + input)
+            console.log(obj)
+        }
+        else {
+            if (!obj.isCheckin) history.push('/event/?eventid=0001&type=success' + '&num=' + input)
+            // else history.push('/event/?eventid=0001&type=failed' + '&num=' + input)
+            // console.log('found',obj)
+            // if (!obj.isCheckin) console.log('found: not checkin',obj)
+            else console.log('found: checked in (failed1): ',obj)
+        }
     }
-    const handleClick = () =>{console.log(input)}
-    
-    const eventid = query.get("eventid")
     return (
         <div>
             <h1>Checkin</h1>
-            <h2>Event: {eventid}</h2>            
+            <h2>Event: {eventid}</h2>
+
             <Form onSubmit={handleSubmit}>
                 <div className="search-group-div">
                     <Form.Label className="search-group-label">
-                    โปรดระบุเบอร์โทรศัพท์ :
+                        โปรดระบุเบอร์โทรศัพท์ :
                     </Form.Label>
                     <div className="search-group-form">
                         <Form.Control
@@ -40,8 +68,8 @@ export default function Checkin() {
                         />
                     </div>
                     <div className="search-group-btn">
-                        <Button  variant="primary" type="submit" value="Submit" >Submit</Button>
-                        <Button  variant="primary" type="button" value="Submit" onClick={handleClick} >print input</Button>
+                        <Button variant="primary" type="submit" value="Submit" >Submit</Button>
+                        <Button variant="primary" type="button" value="Submit" onClick={handleClick} >print input</Button>
                     </div>
                 </div>
             </Form>

@@ -6,7 +6,6 @@ export default function Success() {
         return new URLSearchParams(useLocation().search);
     }
     const current = new Date();
-    var isCheckedIn = false
     const query = useQuery()
     const num = query.get("num")
     const eventId = query.get("eventid")

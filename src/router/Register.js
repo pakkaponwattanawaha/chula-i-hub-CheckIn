@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import firebase from '../utils/firebase'
 export default function Register() {
+    const infoRef = firebase.database().ref("user")
     const initFormData = {
         "userinfo": {
             "telno": "",
@@ -10,6 +11,8 @@ export default function Register() {
             "sid": "",
             "faculty": "",
             "years": "",
+            "isCheckin": false,
+            "checkInDateTime": ""
         },
 
     }
@@ -23,20 +26,30 @@ export default function Register() {
                 [name]: value
             }
         }))
-
     }
+    
     const handleSubmit = () => {
-        const infoRef = firebase.database().ref("user")
+        // event.preventDefault();
+        const current = new Date().toString()
+        console.log('current from in submit',current)
+        setFormData((prevState) => ({ /// problem is in this section prevState mean it has to call 2 times???
+            ...prevState,
+            "userinfo": {
+                ...prevState.userinfo,
+                "isCheckin": true,
+                "checkInDateTime": current
+            }
+        }))
+
+        console.log('submitted', formData)
         infoRef.push(formData)
-        console.log('SUBMITTED!')
     }
-    console.log('formData:', formData)
     return (
         <div>
             <h1>REGISTER</h1>
             <div>Design thinking</div>
             {/* <div>{JSON.toString(formData.userinfo)}</div> */}
-
+            {/* <div>{current.toString()}</div> */}
             <Form onSubmit={handleSubmit}>
                 <div className="search-group-div">
                     <Form.Label className="search-group-label">
@@ -113,7 +126,7 @@ export default function Register() {
                         />
                     </div>
                     <div className="search-group-btn">
-                        <Button variant="primary" type="button" value="Submit" onClick={handleSubmit}>Submit</Button>
+                        <Button variant="primary" type="Submit" onClick={handleSubmit}>Submit</Button>
                     </div>
                 </div>
 
