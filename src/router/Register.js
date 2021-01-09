@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
+import { useHistory, useLocation } from "react-router-dom";
 import firebase from '../utils/firebase'
 export default function Register() {
     const infoRef = firebase.database().ref("user")
+    const history = useHistory()
+    function useQuery() {
+        return new URLSearchParams(useLocation().search);
+    }
+    const query = useQuery();
+    const eventid = query.get("eventid")
     const initFormData = {
         "userinfo": {
             "telno": "",
@@ -18,12 +25,15 @@ export default function Register() {
     }
     const [formData, setFormData] = useState(initFormData)
     const handleOnchange = (e) => {
+        const current = new Date().toString()
         const { name, value } = e.target;
         setFormData((prevState) => ({
             ...prevState,
             "userinfo": {
                 ...prevState.userinfo,
-                [name]: value
+                [name]: value,
+                "isCheckin": true,
+                "checkInDateTime": current
             }
         }))
     }
@@ -31,23 +41,23 @@ export default function Register() {
     const handleSubmit = () => {
         // event.preventDefault();
         const current = new Date().toString()
-        console.log('current from in submit',current)
+        // console.log('current from in submit',current)
         setFormData((prevState) => ({ /// problem is in this section prevState mean it has to call 2 times???
             ...prevState,
             "userinfo": {
                 ...prevState.userinfo,
-                "isCheckin": true,
                 "checkInDateTime": current
             }
         }))
 
         console.log('submitted', formData)
         infoRef.push(formData)
+        history.push('/event/?eventid=0001&type=success' + '&num=' + formData.userinfo.telno)
     }
     return (
         <div>
             <h1>REGISTER</h1>
-            <div>Design thinking</div>
+            <h2>Event: {eventid}</h2>
             {/* <div>{JSON.toString(formData.userinfo)}</div> */}
             {/* <div>{current.toString()}</div> */}
             <Form onSubmit={handleSubmit}>
@@ -126,7 +136,7 @@ export default function Register() {
                         />
                     </div>
                     <div className="search-group-btn">
-                        <Button variant="primary" type="Submit" onClick={handleSubmit}>Submit</Button>
+                        <Button variant="primary" type="Submit" >Submit</Button>
                     </div>
                 </div>
 

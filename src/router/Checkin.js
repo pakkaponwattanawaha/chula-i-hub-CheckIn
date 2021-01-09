@@ -24,8 +24,6 @@ export default function Checkin() {
     const [input, setInput] = useState('');
     const history = useHistory();
 
-    const handleClick = () => { console.log(input) }
-
     const eventid = query.get("eventid")
 
 
@@ -37,21 +35,26 @@ export default function Checkin() {
         console.log(userNumArr)
         let obj = userNumArr.find(o => o.telno === input);
         // console.log(obj)
-        if (!obj || obj===undefined){
-            // history.push('/event/?eventid=0001&type=failed' + '&num=' + input)
-            console.log(obj)
+        if (!obj || obj === undefined) {
+            history.push('/event/?eventid=0001&type=failed' + '&num=' + input)
+            // console.log(obj)
         }
         else {
-            if (!obj.isCheckin) history.push('/event/?eventid=0001&type=success' + '&num=' + input)
-            // else history.push('/event/?eventid=0001&type=failed' + '&num=' + input)
+            if (!obj.isCheckin) {
+                history.push('/event/?eventid=0001&type=success' + '&num=' + input)
+                console.log('change status and update the time in firebaseDB')
+            }
+            else {
+                history.push('/event/?eventid=0001&type=failed' + '&num=' + input)
+            }
             // console.log('found',obj)
             // if (!obj.isCheckin) console.log('found: not checkin',obj)
-            else console.log('found: checked in (failed1): ',obj)
+            // else console.log('found: checked in (failed1): ',obj)
         }
     }
     return (
         <div>
-            <h1>Checkin</h1>
+            <h1>CHECK IN</h1>
             <h2>Event: {eventid}</h2>
 
             <Form onSubmit={handleSubmit}>
@@ -69,7 +72,7 @@ export default function Checkin() {
                     </div>
                     <div className="search-group-btn">
                         <Button variant="primary" type="submit" value="Submit" >Submit</Button>
-                        <Button variant="primary" type="button" value="Submit" onClick={handleClick} >print input</Button>
+                        <div><a href='/event/?eventid=0001&type=register'>register</a></div>
                     </div>
                 </div>
             </Form>
