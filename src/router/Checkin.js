@@ -26,11 +26,11 @@ export default function Checkin() {
 
     const eventid = query.get("eventid")
 
-
+    console.log('isthis undefined:',fromDB)
     const handleSubmit = (event) => {
         event.preventDefault();
         const userNumArr = Object.keys(fromDB).map((key, index) =>
-            new Object({ "telno": fromDB[key].userinfo.telno, "isCheckin": fromDB[key].userinfo.isCheckin })
+            new Object({ "telno": fromDB[key].userinfo.telno, "isCheckin": fromDB[key].userinfo.isCheckin ,"userid":key})
         )
         console.log(userNumArr)
         let obj = userNumArr.find(o => o.telno === input);
@@ -41,8 +41,13 @@ export default function Checkin() {
         }
         else {
             if (!obj.isCheckin) {
-                history.push('/event/?eventid=0001&type=success' + '&num=' + input)
-                console.log('change status and update the time in firebaseDB')
+                const current = new Date().toString()
+                infoRef.update({
+                    [obj.userid+"/userinfo/isCheckin"]: true,
+                    [obj.userid+"/userinfo/checkInDateTime"]:current
+                  });
+                  history.push('/event/?eventid=0001&type=success' + '&num=' + input)
+                
             }
             else {
                 history.push('/event/?eventid=0001&type=failed' + '&num=' + input)

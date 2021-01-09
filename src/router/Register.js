@@ -21,6 +21,7 @@ export default function Register() {
             "isCheckin": false,
             "checkInDateTime": ""
         },
+        "eventinfo":  { "eid": eventid }
 
     }
     const [formData, setFormData] = useState(initFormData)
@@ -37,7 +38,7 @@ export default function Register() {
             }
         }))
     }
-    
+
     const handleSubmit = () => {
         // event.preventDefault();
         const current = new Date().toString()

@@ -25,7 +25,7 @@ export default function MainForm(props) {
     })
     var failedType=""
     const userNumArr = Object.keys(fromDB).map((key, index) =>
-        new Object({ "telno": fromDB[key].userinfo.telno, "isCheckin": fromDB[key].userinfo.isCheckin })
+        new Object({ "telno": fromDB[key].userinfo.telno, "isCheckin": fromDB[key].userinfo.isCheckin ,"userid":key})
     )
     console.log(userNumArr)
     let obj = userNumArr.find(o => o.telno === telno);
@@ -53,9 +53,29 @@ export default function MainForm(props) {
                 return <Error />;
         }
     }
+    const [event, setEvent] = useState({"eid":"","name":"","description":""})
+    const handleOnchange = (e) => {
+        const { name, value } = e.target;
+        setEvent((prevState) => ({
+            ...prevState,
+                [name]: value,
+            
+        }))
+        console.log(event)
+    }
+    const createNumber = () => {
+        const numRef = firebase.database().ref("event")
+        numRef.push(event)
+    }
     return (
         <div>
+            {/* <h1>Main form</h1> */}
+            {/* <div>Eventid = {eventid}</div> */}
             <div>{renderSwitch(type)}</div>
+
+
+
+
         </div>
     )
 }

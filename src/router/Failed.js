@@ -10,7 +10,7 @@ export default function Failed(props) {
     const eventId = query.get("eventid")
     const backRef = '/event/?eventid=' + eventId + '&type=checkin'
     const registerRef = '/event/?eventid=' + eventId + '&type=register'
-
+    ///handle register failed (duplicate telno)
     return (
         <div>
             <img width='200px' src={failedIcon} />
