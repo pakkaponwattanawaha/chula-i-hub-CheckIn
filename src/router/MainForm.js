@@ -6,6 +6,7 @@ import Register from './Register'
 import Checkin from './Checkin'
 import Error from './Error'
 import firebase from '../utils/firebase'
+import './MainForm.scss'
 export default function MainForm(props) {
     function useQuery() {
         return new URLSearchParams(useLocation().search);
@@ -73,8 +74,7 @@ export default function MainForm(props) {
             {/* <div>Eventid = {eventid}</div> */}
             <div>{renderSwitch(type)}</div>
 
-
-
+            <div className="footer"></div>
 
         </div>
     )

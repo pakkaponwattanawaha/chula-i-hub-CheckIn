@@ -1,0 +1,31 @@
+.search-group-div {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: fit-content;
+}
+.search-group-form {
+    padding: 5px 10px;
+    width: 90%;
+    max-width: 250px;
+    margin: 0px 0px 15px 0px;
+    border: 1px solid;
+}
+.search-group-label {
+    padding-bottom: 5px;
+    align-self: flex-start;
+}
+
+.search-group-btn-div {
+    align-self: flex-start;
+    .search-group-btn {
+        border-radius: 0px;
+        background-color: #ff008a;
+        border: none;
+        padding: 5px 10px;
+        color: white;
+        font-size: 16px;
+        margin-top: 5px;
+        cursor: pointer;
+    }
+}

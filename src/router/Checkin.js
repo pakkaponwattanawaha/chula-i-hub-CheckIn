@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory, useLocation } from "react-router-dom";
 import firebase from '../utils/firebase'
-
+import './Checkin.scss'
 // import BasicForm from '../component/BasicForm'
 // import Btn from '../component/Btn'
 import { Form, Button } from 'react-bootstrap'
@@ -26,11 +26,11 @@ export default function Checkin() {
 
     const eventid = query.get("eventid")
 
-    console.log('isthis undefined:',fromDB)
+    console.log('isthis undefined:', fromDB)
     const handleSubmit = (event) => {
         event.preventDefault();
         const userNumArr = Object.keys(fromDB).map((key, index) =>
-            new Object({ "telno": fromDB[key].userinfo.telno, "isCheckin": fromDB[key].userinfo.isCheckin ,"userid":key})
+            new Object({ "telno": fromDB[key].userinfo.telno, "isCheckin": fromDB[key].userinfo.isCheckin, "userid": key })
         )
         console.log(userNumArr)
         let obj = userNumArr.find(o => o.telno === input);
@@ -43,11 +43,11 @@ export default function Checkin() {
             if (!obj.isCheckin) {
                 const current = new Date().toString()
                 infoRef.update({
-                    [obj.userid+"/userinfo/isCheckin"]: true,
-                    [obj.userid+"/userinfo/checkInDateTime"]:current
-                  });
-                  history.push('/event/?eventid=0001&type=success' + '&num=' + input)
-                
+                    [obj.userid + "/userinfo/isCheckin"]: true,
+                    [obj.userid + "/userinfo/checkInDateTime"]: current
+                });
+                history.push('/event/?eventid=0001&type=success' + '&num=' + input)
+
             }
             else {
                 history.push('/event/?eventid=0001&type=failed' + '&num=' + input)
@@ -59,7 +59,6 @@ export default function Checkin() {
     }
     return (
         <div>
-            <h1>CHECK IN</h1>
             <h2>Event: {eventid}</h2>
 
             <Form onSubmit={handleSubmit}>
@@ -67,16 +66,17 @@ export default function Checkin() {
                     <Form.Label className="search-group-label">
                         โปรดระบุเบอร์โทรศัพท์ :
                     </Form.Label>
-                    <div className="search-group-form">
+                    <div >
                         <Form.Control
+                            className="search-group-form"
                             type="text"
                             value={input}
                             onChange={e => setInput(e.target.value)}
                             placeholder='0XX-XXX-XXXX'
                         />
                     </div>
-                    <div className="search-group-btn">
-                        <Button variant="primary" type="submit" value="Submit" >Submit</Button>
+                    <div className="search-group-btn-div">
+                        <Button className="search-group-btn" variant="primary" type="submit" value="Submit" >Submit</Button>
                         <div><a href='/event/?eventid=0001&type=register'>register</a></div>
                     </div>
                 </div>

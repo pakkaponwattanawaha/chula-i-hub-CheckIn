@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory, useLocation } from "react-router-dom";
 import failedIcon from '../res/failedIcon.png'
+import { Button } from 'react-bootstrap'
+import "./Failed.scss"
 export default function Failed(props) {
     function useQuery() {
         return new URLSearchParams(useLocation().search);
@@ -13,14 +15,23 @@ export default function Failed(props) {
     ///handle register failed (duplicate telno)
     return (
         <div>
-            <img width='200px' src={failedIcon} />
-            {(props.failedType === "alreadyCheckedIn") ?
-                <div>ดำเนินการไม่สำเร็จหมายเลขโทรศัพท์ {num} ได้ถูกลงทะเบียนไปแล้ว</div>
-                :
-                <div>ไม่พบการลงทะเบียนหมายเลขโทรศัพท์{num} โปรดตรวจสอบหมายเลขของท่าน หรือทำการลงทะเบียนใหม่</div>
-            }
-            <button><a href={backRef}>Back</a></button>
-            <button><a href={registerRef}>Register</a></button>
+            <div>
+                <img width='200px' src={failedIcon} />
+                {(props.failedType === "alreadyCheckedIn") ?
+                    <div>ดำเนินการไม่สำเร็จหมายเลขโทรศัพท์ {num} <br /> ได้ถูกลงทะเบียนไปแล้ว</div>
+                    :
+                    <div>ไม่พบการลงทะเบียนหมายเลขโทรศัพท์ {num} <br />โปรดตรวจสอบหมายเลขของท่าน หรือทำการลงทะเบียนใหม่</div>
+                }
+
+                <div className="failed-group-btn-div" >
+                    <Button className="failed-group-btn" variant="primary" type="Submit" >
+                        <a href={backRef}>Back</a>
+                    </Button>
+                    <Button className="failed-group-btn" variant="primary" type="Submit" >
+                        <a href={registerRef}>Register</a>
+                    </Button>
+                </div>
+            </div>
         </div>
     )
 }

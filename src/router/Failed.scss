@@ -1,0 +1,21 @@
+.failed-group-btn-div {
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-around;
+    width: 70%;
+    max-width:250px;
+    margin :auto;
+    .failed-group-btn {
+        border-radius: 0px;
+        background-color: #ff008a;
+        border: none;
+        padding: 5px 10px;
+        font-size: 16px;
+        margin-top: 5px;
+        cursor: pointer;
+        a {
+            text-decoration: none;
+            color: white;
+        }
+    }
+}

@@ -9,7 +9,7 @@ function Navbar() {
                     <li>
                         <img width='200px' src={cuhublogo} />
                     </li>
-                    <li>
+                    {/* <li>
                         <a href='/event/?eventid=0001&type=checkin'>Home</a>
                     </li>
                     <li>
@@ -23,7 +23,7 @@ function Navbar() {
                     </li>
                     <li>
                         <a href='/event/?eventid=0001&type=success&num=0865500107'>success</a>
-                    </li>
+                    </li> */}
                 </ul>
             </nav>
         </div>

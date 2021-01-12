@@ -4,7 +4,7 @@ export const getData = async (param) => {
     
     try {
         const config = {
-          url: 'http://localhost:9000/trips'+param ,
+          url: 'http://localhost:9000/'+param ,
           method: 'get'
         }
         const response = await axios.request(config)

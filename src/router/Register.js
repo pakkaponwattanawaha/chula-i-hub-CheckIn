@@ -21,7 +21,7 @@ export default function Register() {
             "isCheckin": false,
             "checkInDateTime": ""
         },
-        "eventinfo":  { "eid": eventid }
+        "eventinfo": { "eid": eventid }
 
     }
     const [formData, setFormData] = useState(initFormData)
@@ -57,8 +57,8 @@ export default function Register() {
     }
     return (
         <div>
-            <h1>REGISTER</h1>
             <h2>Event: {eventid}</h2>
+            <h2>โปรดกรอกข้อมูลลงในช่องว่าง</h2>
             {/* <div>{JSON.toString(formData.userinfo)}</div> */}
             {/* <div>{current.toString()}</div> */}
             <Form onSubmit={handleSubmit}>
@@ -66,8 +66,9 @@ export default function Register() {
                     <Form.Label className="search-group-label">
                         ชื่อ :
                     </Form.Label>
-                    <div className="search-group-form">
+                    <div >
                         <Form.Control
+                            className="search-group-form"
                             name="name"
                             type="text"
                             value={formData.userinfo.name}
@@ -78,8 +79,9 @@ export default function Register() {
                     <Form.Label className="search-group-label">
                         นามสกุล :
                     </Form.Label>
-                    <div className="search-group-form">
+                    <div >
                         <Form.Control
+                            className="search-group-form"
                             name="surname"
                             type="text"
                             value={formData.userinfo.surname}
@@ -91,8 +93,9 @@ export default function Register() {
                     <Form.Label className="search-group-label">
                         รหัสนิสิต :
                     </Form.Label>
-                    <div className="search-group-form">
+                    <div >
                         <Form.Control
+                            className="search-group-form"
                             name="sid"
                             type="text"
                             value={formData.userinfo.sid}
@@ -103,8 +106,9 @@ export default function Register() {
                     <Form.Label className="search-group-label">
                         คณะ :
                     </Form.Label>
-                    <div className="search-group-form">
+                    <div >
                         <Form.Control
+                            className="search-group-form"
                             name="faculty"
                             type="text"
                             value={formData.userinfo.faculty}
@@ -115,8 +119,9 @@ export default function Register() {
                     <Form.Label className="search-group-label">
                         ชั้นปี :
                     </Form.Label>
-                    <div className="search-group-form">
+                    <div >
                         <Form.Control
+                            className="search-group-form"
                             name="years"
                             type="text"
                             value={formData.userinfo.years}
@@ -127,8 +132,9 @@ export default function Register() {
                     <Form.Label className="search-group-label">
                         เบอร์โทรศัพท์ :
                     </Form.Label>
-                    <div className="search-group-form">
+                    <div >
                         <Form.Control
+                            className="search-group-form"
                             name="telno"
                             type="text"
                             value={formData.userinfo.telno}
@@ -136,8 +142,8 @@ export default function Register() {
                             placeholder=''
                         />
                     </div>
-                    <div className="search-group-btn">
-                        <Button variant="primary" type="Submit" >Submit</Button>
+                    <div className="search-group-btn-div" >
+                        <Button className="search-group-btn" variant="primary" type="Submit" >Submit</Button>
                     </div>
                 </div>
 
